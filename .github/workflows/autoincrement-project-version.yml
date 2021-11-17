@@ -30,9 +30,14 @@ jobs:
         run: |
           ls
           cd ${{ github.head_ref }}
-          version=`npm -s run-script get-version`
-          env
-          echo $version
+          merge_version=`npm -s run-script get-version`
+          curent_version="1.0.0"
+          max_version=`printf '%s\n' "$merge_version" "$curent_version" | sort -V | head -n 1`
+          if [ "$max_version" == "$curent_version" ]
+          then
+            npm version $max_version --no-git-tag-version
+            npm version patch --no-git-tag-version
+          fi
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
