@@ -28,11 +28,11 @@ jobs:
           event_label_name: ${{ github.event.label.name }}
 
         run: |
-          ls
+          env
           cd ${{ github.head_ref }}
           merge_version=`npm -s run-script get-version`
           curent_version="1.0.0"
-          max_version=`printf '%s\n' "$merge_version" "$curent_version" | sort -V | head -n 1`
+          max_version=`printf '%s\n' "$merge_version" "$curent_version" | sort -V | tail -n 1`
           if [ "$max_version" == "$curent_version" ]
           then
             npm version $max_version --no-git-tag-version
