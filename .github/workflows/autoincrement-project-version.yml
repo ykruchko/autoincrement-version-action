@@ -34,6 +34,8 @@ jobs:
           event_label_name: ${{ github.event.label.name }}
 
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           cd ${{ github.workspace }}/${{ github.head_ref }}
           merge_version=`npm -s run-script get-version`
           echo "New version: $merge_version"
@@ -49,12 +51,11 @@ jobs:
             npm version $max_version --no-git-tag-version --allow-same-version
             echo "To:"
             npm version patch --no-git-tag-version
+            git commit -am "Autoincrement project version"
           else
-            echo "Use project version:"
+            echo "Keep project version:"
             npm version $merge_version --no-git-tag-version --allow-same-version
           fi
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
