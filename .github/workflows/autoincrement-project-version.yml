@@ -52,7 +52,8 @@ jobs:
             npm version patch --no-git-tag-version
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
-            git commit -am "Autoincrement project version"
+            git commit --amend --no-edit
+
           else
             echo "Keep project version:"
             npm version $merge_version --no-git-tag-version --allow-same-version
