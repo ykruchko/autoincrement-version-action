@@ -4,11 +4,9 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
-
     steps:
       - name: test
-        run:
-          - echo 111
+        run: |
+          echo qweqwe
   
