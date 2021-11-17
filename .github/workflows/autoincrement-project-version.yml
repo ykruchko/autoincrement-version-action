@@ -1,6 +1,6 @@
 name: Autoincrement project version
 on:
-  pull_request:
+  pull_request_target:
     types: [opened,edited,reopened,synchronize]
     branches:
       - master
