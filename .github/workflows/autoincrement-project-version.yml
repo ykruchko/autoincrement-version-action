@@ -1,0 +1,38 @@
+name: Autoincrement project version
+on:
+  pull_request:
+    types: [opened,edited,reopened,synchronize]
+    branches:
+      - master
+      - main
+
+jobs:
+  increment_version:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          path: ${{ github.head_ref }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Set Project Version
+        env:
+          event: ${{ github.event.action }}
+          event_label_name: ${{ github.event.label.name }}
+
+        run: |
+          ls
+          cd ${{ github.head_ref }}
+          version=`npm -s run-script get-version`
+          env
+          echo $version
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
