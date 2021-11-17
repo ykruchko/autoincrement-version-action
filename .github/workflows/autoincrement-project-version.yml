@@ -36,9 +36,11 @@ jobs:
         run: |
           env
           cd ${{ github.workspace }}/${{ github.head_ref }}
+          pwd
           merge_version=`npm -s run-script get-version`
           echo "New version: $merge_version"
           cd ${{ github.workspace }}/${{ github.base_ref }}
+          pwd
           curent_version=`npm -s run-script get-version`
           echo "Curent version: $merge_version"
           max_version=`printf '%s\n' "$merge_version" "$curent_version" | sort -V | tail -n 1`
