@@ -42,8 +42,9 @@ jobs:
           cd ${{ github.workspace }}/${{ github.base_ref }}
           pwd
           curent_version=`npm -s run-script get-version`
-          echo "Curent version: $merge_version"
+          echo "Curent version: $curent_version"
           max_version=`printf '%s\n' "$merge_version" "$curent_version" | sort -V | tail -n 1`
+          echo "Max version $max_version"
           if [ "$max_version" == "$curent_version" ]
           then
             echo "Increment project version"
