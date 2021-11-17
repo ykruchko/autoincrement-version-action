@@ -37,19 +37,21 @@ jobs:
           env
           cd ${{ github.workspace }}/${{ github.head_ref }}
           merge_version=`npm -s run-script get-version`
+          echo "New version: $merge_version"
           cd ${{ github.workspace }}/${{ github.base_ref }}
           curent_version=`npm -s run-script get-version`
+          echo "Curent version: $merge_version"
           max_version=`printf '%s\n' "$merge_version" "$curent_version" | sort -V | tail -n 1`
           if [ "$max_version" == "$curent_version" ]
           then
             echo "Increment project version"
             echo "From:"
-            npm version $max_version --no-git-tag-version
+            npm version $max_version --no-git-tag-version --allow-same-version
             echo "To:"
             npm version patch --no-git-tag-version
           else
-            echo "Use project version"
-            npm version $merge_version --no-git-tag-version
+            echo "Use project version:"
+            npm version $merge_version --no-git-tag-version --allow-same-version
           fi
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
