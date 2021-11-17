@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      run:
-        - echo 111
+      - name: test
+        run:
+          - echo 111
   
