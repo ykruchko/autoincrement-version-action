@@ -41,7 +41,7 @@ jobs:
           curent_version=`npm -s run-script get-version`
           echo "Curent version: $curent_version"
           max_version=`printf '%s\n' "$merge_version" "$curent_version" | sort -V | tail -n 1`
-          echo "Max version $max_version"
+          echo "Max version: $max_version"
           if [ "$max_version" == "$curent_version" ]
           then
             echo "Increment project version"
@@ -59,7 +59,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
           with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
-          directory: ${{ github.workspace }}/${{ github.head_ref }}
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: ${{ github.head_ref }}
+            directory: ${{ github.workspace }}/${{ github.head_ref }}
 
