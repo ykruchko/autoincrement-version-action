@@ -1,6 +1,14 @@
 name: Autoincrement project version
 on:
-  pull_request
+  pull_request:
+    branches: 
+      - main
+      - master
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
 
 jobs:
   increment_version:
